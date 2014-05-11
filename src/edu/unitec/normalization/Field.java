@@ -1,6 +1,7 @@
 
 package edu.unitec.normalization;
 
+import java.util.Collections;
 import java.util.List;
 /**
  *
@@ -11,6 +12,10 @@ public class Field {
     private boolean primaryKey;
     
     public Field(List<Character> names, boolean isPrimaryKey) throws InvalidDataException {
+        if (names == null) {
+            throw new InvalidDataException("Field name list is null");
+        }
+        
         if (names.isEmpty()) {
             throw new InvalidDataException("Field names are empty");
         }
@@ -22,6 +27,7 @@ public class Field {
         }
         
         this.names = names;
+        Collections.sort(this.names);
         this.primaryKey = isPrimaryKey;
     }
     

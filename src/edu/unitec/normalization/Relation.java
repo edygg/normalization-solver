@@ -3,7 +3,6 @@ package edu.unitec.normalization;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  *
@@ -17,7 +16,11 @@ public class Relation {
     }
     
     public boolean addField(Field field) {        
-        if (field == null || this.fields.contains(field)) {
+        if (field == null) {
+            return false;
+        }
+        
+        if (this.fields.contains(field)) {
             return false;
         }
         
