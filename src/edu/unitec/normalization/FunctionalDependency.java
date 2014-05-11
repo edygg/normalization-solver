@@ -101,5 +101,32 @@ public class FunctionalDependency {
         
         return retList;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final FunctionalDependency other = (FunctionalDependency) obj;
+        
+        for (int i = 0; i < other.leftFields.size(); i++) {
+            if (!this.leftFields.contains(other.leftFields.get(i))) {
+                return false;
+            }
+        }
+        
+        for (int i = 0; i < other.rightFields.size(); i++) {
+            if (!this.rightFields.contains(other.rightFields.get(i))) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    
     
 }

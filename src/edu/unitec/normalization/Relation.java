@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class Relation {
     private List<Field> fields;
+    private List<FunctionalDependency> functionalDependencies;
     
     public Relation() {
         this.fields = new ArrayList();
@@ -25,6 +26,18 @@ public class Relation {
         }
         
         return this.fields.add(field);
+    }
+    
+    public boolean addFunctionalDependency(FunctionalDependency fd) {
+        if (fd == null) {
+            return false;
+        }
+        
+        if (this.functionalDependencies.contains(fd)) {
+            return false;
+        }
+        
+        return this.functionalDependencies.add(fd);
     }
 
     @Override
