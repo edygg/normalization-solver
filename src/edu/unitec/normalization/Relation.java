@@ -9,11 +9,13 @@ import java.util.List;
  * @author Edilson
  */
 public class Relation {
+    public static final String RELATION_REGEX = "[r|R][(]([A-Z][,])*[A-Z][)]";
     private List<Field> fields;
     private List<FunctionalDependency> functionalDependencies;
     
     public Relation() {
         this.fields = new ArrayList();
+        this.functionalDependencies = new ArrayList();
     }
     
     public boolean addField(Field field) {        
@@ -38,6 +40,10 @@ public class Relation {
         }
         
         return this.functionalDependencies.add(fd);
+    }
+    
+    public boolean hasField(Field field) {
+        return this.fields.contains(field);
     }
 
     @Override
@@ -72,5 +78,7 @@ public class Relation {
         return true;
     }
     
-        
+    public List<FunctionalDependency> getFunctionalDependencies() {
+        return this.functionalDependencies;
+    }    
 }

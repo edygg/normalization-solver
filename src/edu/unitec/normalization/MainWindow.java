@@ -1,6 +1,10 @@
 
 package edu.unitec.normalization;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Edilson
@@ -12,6 +16,7 @@ public class MainWindow extends javax.swing.JFrame {
      */
     public MainWindow() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -26,12 +31,13 @@ public class MainWindow extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tfRelationCK = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        tfFunctionalDependenciesCK = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        taCandidateKeys = new javax.swing.JTextArea();
+        btnSolveCK = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -45,26 +51,39 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Candidate Keys:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        taCandidateKeys.setEditable(false);
+        taCandidateKeys.setColumns(20);
+        taCandidateKeys.setRows(3);
+        jScrollPane1.setViewportView(taCandidateKeys);
+
+        btnSolveCK.setText("Solve");
+        btnSolveCK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSolveCKActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(0, 265, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                            .addComponent(tfRelationCK)
+                            .addComponent(tfFunctionalDependenciesCK, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addGap(0, 265, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSolveCK)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -73,16 +92,18 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfRelationCK, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfFunctionalDependenciesCK, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnSolveCK)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Candidate Keys", jPanel1);
@@ -120,6 +141,77 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSolveCKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolveCKActionPerformed
+        try {
+            this.currentRelation = parseRelation();
+        } catch (InvalidDataException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSolveCKActionPerformed
+
+    public Relation parseRelation() throws InvalidDataException {
+        String relationString = this.tfRelationCK.getText();
+        String functionalDependenciesString = this.tfFunctionalDependenciesCK.getText();
+        
+        if (relationString.isEmpty() || !relationString.matches(Relation.RELATION_REGEX)) {
+            throw new InvalidDataException("Invalid relation. Please try again.");
+        }
+        if (functionalDependenciesString.isEmpty() || !functionalDependenciesString.matches(FunctionalDependency.FUNCTIONAL_DEPENDENCY_REGEX)) {
+            throw new InvalidDataException("Invalid functional dependencies. Please try again.");
+        }
+        
+        Relation neoRelation = new Relation();
+        
+        // Parsing Relation
+        relationString = relationString.replaceAll("[r|R][(]", "");
+        relationString = relationString.replaceAll("[)]", "");
+        
+        String[] individualFields = relationString.split(",");
+        
+        for (int i = 0; i < individualFields.length; i++) {
+            List<Character> neoList = new ArrayList();
+            neoList.add(individualFields[i].charAt(0));
+            neoRelation.addField(new Field(neoList, false));
+        }
+        
+        // Parsing Functional Dependencies
+        String[] individualFunctionalDependencies = functionalDependenciesString.split(",");
+        for (int i = 0; i < individualFunctionalDependencies.length; i++) {
+            String[] fdParts = individualFunctionalDependencies[i].split("[\\-][\\->]");
+            List<Field> right = new ArrayList();
+            List<Field> left = new ArrayList();
+            
+            for (int j = 0; j < fdParts[0].length(); j++) {
+                List<Character> neoList = new ArrayList();
+                neoList.add(fdParts[0].charAt(j));
+                
+                Field neoField = new Field(neoList, false);
+                
+                if (!neoRelation.hasField(neoField)) {
+                    throw new InvalidDataException("A field does not exist in the relation.");
+                } 
+                
+                left.add(neoField);
+            }
+            
+            for (int j = 0; j < fdParts[1].length(); j++) {
+                List<Character> neoList = new ArrayList();
+                neoList.add(fdParts[1].charAt(j));
+
+                Field neoField = new Field(neoList, false);
+
+                if (!neoRelation.hasField(neoField)) {
+                    throw new InvalidDataException("A field does not exist in the relation.");
+                }
+
+                right.add(neoField);
+            }
+            
+            neoRelation.addFunctionalDependency(new FunctionalDependency(left, right));
+        }
+        
+        return neoRelation;
+    }
     /**
      * @param args the command line arguments
      */
@@ -131,7 +223,7 @@ public class MainWindow extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -154,8 +246,12 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
     }
+    
+    // Main Relation
+    private Relation currentRelation;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSolveCK;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -163,8 +259,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextArea taCandidateKeys;
+    private javax.swing.JTextField tfFunctionalDependenciesCK;
+    private javax.swing.JTextField tfRelationCK;
     // End of variables declaration//GEN-END:variables
 }

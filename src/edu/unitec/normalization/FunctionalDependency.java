@@ -10,6 +10,7 @@ import java.util.TreeSet;
  * @author Edilson
  */
 public class FunctionalDependency {
+    public static final String FUNCTIONAL_DEPENDENCY_REGEX = "([A-Z]{1,})[\\-][\\>]([A-Z]{1,})([,]([A-Z]{1,})[\\-][\\>]([A-Z]{1,}))*";
     private List<Field> rightFields;
     private List<Field> leftFields;
     
