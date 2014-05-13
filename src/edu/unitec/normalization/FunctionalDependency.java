@@ -54,6 +54,24 @@ public class FunctionalDependency {
         this.leftFields = left;
     } 
 
+    public List<Field> getRightFields() {
+        return rightFields;
+    }
+
+    public void setRightFields(List<Field> rightFields) {
+        this.rightFields = rightFields;
+    }
+
+    public List<Field> getLeftFields() {
+        return leftFields;
+    }
+
+    public void setLeftFields(List<Field> leftFields) {
+        this.leftFields = leftFields;
+    }
+    
+    
+    
     @Override
     public String toString() {
         String retVal = "";

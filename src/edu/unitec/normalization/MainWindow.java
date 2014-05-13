@@ -143,7 +143,14 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void btnSolveCKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolveCKActionPerformed
         try {
+            taCandidateKeys.setText("");
             this.currentRelation = parseRelation();
+            List<String> keys=this.currentRelation.candidateKeys();
+            System.out.println("Candidate Keys:\n\n");
+            for (int i = 0; i < keys.size(); i++) {
+                System.out.println((i+1)+". "+keys.get(i));
+                taCandidateKeys.append(keys.get(i)+"\n");
+            }
         } catch (InvalidDataException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
