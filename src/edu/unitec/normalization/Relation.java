@@ -78,18 +78,142 @@ public class Relation {
         }
         System.out.println("\n\n\n");
         for (int i = 0; i < shortPaths.length; i++) {
-            if (validate(shortPaths,i)) {
+            if (validate(shortPaths, i)) {
                 keys.add((String) vertices1[i]);
             }
         }
-        
+
         /*Aqui comienza a combinar fields para poder crear llaves compuestas*/
         /*No debe estar vacia para que se corra este metodo, pero solo es una prueba*/
-        if (keys.isEmpty()) {
-           
+        int f_size = this.fields.size();
+        ArrayList<String> add;
+        System.out.println("");
+
+        for (int i = f_size; i < shortPaths.length; i++) {
+            add = shotgun(shortPaths, i, (String) vertices1[i]);
+            System.out.println("");
+            System.out.println("");
+            for (int j = 0; j < add.size(); j++) {
+                if (add.get(j).length() != 0 || add.get(j).length() != this.fields.size()) {
+                    if (keys.indexOf(add.get(j)) == -1) {
+                        keys.add(add.get(j));
+                    }
+                }
+
+            }
         }
-        
+
         return keys;
+    }
+
+    private ArrayList<String> shotgun(double[][] x, int k, String t1) {
+        ArrayList<String> qwerty2 = new ArrayList();
+        double[] temp = x[k];
+        /*ArrayList<Integer> positions = new ArrayList();
+         for (int j = 0; j < this.fields.size(); j++) {
+         if (temp[j] == Double.POSITIVE_INFINITY) {
+         positions.add(j);
+         }
+         }*/
+        Object[] vertices1 = graph.getVertices().toArray();
+        Arrays.sort(vertices1);
+        for (int i = 0; i < vertices1.length - 1; i++) {
+            for (int j = i + 1; j < vertices1.length; j++) {
+                if (((String) vertices1[i]).length() > ((String) vertices1[j]).length()) {
+                    Object t = vertices1[j];
+                    vertices1[j] = vertices1[i];
+                    vertices1[i] = t;
+                }
+            }
+        }
+        /*R(A,B,C,D,E,F,G,H,I,J)*/
+        /*AB->C,BD->FE,AD->GH,A->I,H->J*/
+        /*for (int j = 0; j < positions.size(); j++) {
+         retval += (String) vertices1[positions.get(j)];
+         }*/
+        for (int j = 0; j < this.fields.size(); j++) {
+            if (temp[j] == Double.POSITIVE_INFINITY) {
+                temp[j] = -1.0;
+            }
+        }
+        for (int i = k + 1; i < vertices1.length; i++) {
+            double[] temp2 = x[i];
+
+            for (int j = 0; j < this.fields.size(); j++) {
+                if (temp2[j] == Double.POSITIVE_INFINITY) {
+                    temp2[j] = -1.0;
+                }
+            }
+            System.out.println("Temp1: ");
+            for (int j = 0; j < this.fields.size(); j++) {
+                System.out.print(temp[j] + "\t");
+            }
+            System.out.println("");
+            System.out.println("Temp2: ");
+            for (int j = 0; j < this.fields.size(); j++) {
+                System.out.print(temp2[j] + "\t");
+            }
+            System.out.println("");
+            double[] temp3 = new double[this.fields.size()];
+            for (int j = 0; j < this.fields.size(); j++) {
+                temp3[j] = temp[j] + temp2[j];
+            }
+            System.out.println("Temp3: ");
+            for (int j = 0; j < this.fields.size(); j++) {
+                System.out.print(temp3[j] + "\t");
+            }
+            System.out.println("");
+            boolean simon = true;
+            for (int j = 0; j < temp3.length; j++) {
+                if (temp3[j] < 0) {
+                    simon = false;
+                    j = temp3.length;
+                }
+            }
+            if (simon) {
+                ArrayList<Character> qwerty = new ArrayList();
+                for (int m = 0; m < t1.length(); m++) {
+                    qwerty.add(t1.charAt(m));
+                }
+                String novo = (String) vertices1[i];
+                for (int j = 0; j < novo.length(); j++) {
+                    if (qwerty.indexOf(novo.charAt(j)) == -1) {
+                        qwerty.add(novo.charAt(j));
+                    }
+
+                }
+                Object[] asd = qwerty.toArray();
+                Arrays.sort(asd);
+                String y = "";
+                for (int j = 0; j < qwerty.size(); j++) {
+                    y += (Character) asd[j];
+                }
+                qwerty2.add(y);
+
+            }
+            if (i == vertices1.length - 1 && qwerty2.isEmpty()) {
+                ArrayList<Character> qwerty = new ArrayList();
+                for (int m = 0; m < t1.length(); m++) {
+                    qwerty.add(t1.charAt(m));
+                }
+                for (int j = k + 1; j < vertices1.length; j++) {
+                    String temporal = (String) vertices1[j];
+                    for (int l = 0; l < temporal.length(); l++) {
+                        if (qwerty.indexOf(temporal.charAt(l)) == -1) {
+                            qwerty.add(temporal.charAt(l));
+                        }
+                    }
+                }
+                Object[] asd = qwerty.toArray();
+                Arrays.sort(asd);
+                String y = "";
+                for (int j = 0; j < qwerty.size(); j++) {
+                    y += (Character) asd[j];
+                }
+                qwerty2.add(y);
+            }
+        }
+        return qwerty2;
     }
 
     private boolean validate(double[][] x, int i) {
@@ -184,10 +308,6 @@ public class Relation {
     public boolean hasField(Field field) {
         return this.fields.contains(field);
     }
-    
-    public List<Field> getFields() {
-        return this.fields;
-    }
 
     @Override
     public String toString() {
@@ -225,16 +345,7 @@ public class Relation {
         return this.functionalDependencies;
     }
     
-    /*<<<<<<<<<<<<<<<<<<<<<<< Esto hay que arreglarlo!!!!!!!!!!!!!!!!!!!!!!!!!!!!¨*/
-    public List<Relation> secondNormalForm(Field primaryKey) throws InvalidDataException {
-        if (primaryKey == null) {
-            throw new InvalidDataException("Invalid primary key");
-        }
-        
-        if (!primaryKey.isPrimaryKey()) {
-            throw new InvalidDataException("Invalid primary key");
-        }
-        
-        return null;
+    public List<Field> getFields() {
+        return this.fields;
     }
 }
