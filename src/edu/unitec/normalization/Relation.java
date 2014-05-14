@@ -184,6 +184,10 @@ public class Relation {
     public boolean hasField(Field field) {
         return this.fields.contains(field);
     }
+    
+    public List<Field> getFields() {
+        return this.fields;
+    }
 
     @Override
     public String toString() {
@@ -219,5 +223,18 @@ public class Relation {
 
     public List<FunctionalDependency> getFunctionalDependencies() {
         return this.functionalDependencies;
+    }
+    
+    /*<<<<<<<<<<<<<<<<<<<<<<< Esto hay que arreglarlo!!!!!!!!!!!!!!!!!!!!!!!!!!!!¨*/
+    public List<Relation> secondNormalForm(Field primaryKey) throws InvalidDataException {
+        if (primaryKey == null) {
+            throw new InvalidDataException("Invalid primary key");
+        }
+        
+        if (!primaryKey.isPrimaryKey()) {
+            throw new InvalidDataException("Invalid primary key");
+        }
+        
+        return null;
     }
 }

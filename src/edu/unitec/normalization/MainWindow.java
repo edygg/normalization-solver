@@ -39,6 +39,16 @@ public class MainWindow extends javax.swing.JFrame {
         taCandidateKeys = new javax.swing.JTextArea();
         btnSolveCK = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        tfRelationN = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        tfFunctionalDependenciesN = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        tfPrimaryKeyN = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        taNormalization = new javax.swing.JTextArea();
+        btnNormalize = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,34 +99,99 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfRelationCK, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfFunctionalDependenciesCK, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2)
                 .addGap(18, 18, 18)
+                .addComponent(tfFunctionalDependenciesCK, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSolveCK)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Candidate Keys", jPanel1);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setText("Relation");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setText("Functional Dependencies");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel6.setText("Primary Key");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel7.setText("Normalization");
+
+        taNormalization.setEditable(false);
+        taNormalization.setColumns(20);
+        taNormalization.setRows(1);
+        jScrollPane2.setViewportView(taNormalization);
+
+        btnNormalize.setText("Normalize");
+        btnNormalize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNormalizeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 569, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfFunctionalDependenciesN, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnNormalize))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(149, 149, 149)
+                        .addComponent(tfRelationN))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(118, 118, 118)
+                        .addComponent(tfPrimaryKeyN)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 347, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfRelationN))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfFunctionalDependenciesN))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfPrimaryKeyN))
+                .addGap(30, 30, 30)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnNormalize)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Normalization", jPanel2);
@@ -144,7 +219,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void btnSolveCKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolveCKActionPerformed
         try {
             taCandidateKeys.setText("");
-            this.currentRelation = parseRelation();
+            this.currentRelation = parseRelation(this.tfRelationCK.getText(), this.tfFunctionalDependenciesCK.getText());
             List<String> keys=this.currentRelation.candidateKeys();
             System.out.println("Candidate Keys:\n\n");
             for (int i = 0; i < keys.size(); i++) {
@@ -156,10 +231,55 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSolveCKActionPerformed
 
-    public Relation parseRelation() throws InvalidDataException {
-        String relationString = this.tfRelationCK.getText();
-        String functionalDependenciesString = this.tfFunctionalDependenciesCK.getText();
+    private void btnNormalizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNormalizeActionPerformed
+        try {
+            taNormalization.setText("");
+            this.currentRelation = parseRelation(this.tfRelationN.getText(), this.tfFunctionalDependenciesN.getText());
+            // 2NF
+            parsePrimaryKey(this.tfPrimaryKeyN.getText());
+        } catch (InvalidDataException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnNormalizeActionPerformed
+
+    public void parsePrimaryKey(String primaryKeyString) throws InvalidDataException {
+        if (primaryKeyString == null || this.currentRelation == null) {
+            throw new InvalidDataException("Please enter a primary key");
+        }
         
+        if (primaryKeyString.isEmpty() || !primaryKeyString.matches(Field.PRIMARY_KEY_REGEX)) {
+            throw new InvalidDataException("Please check primary key");
+        }
+        
+        List<Character> primaryFields = new ArrayList();
+        
+        for (int i = 0; i < primaryKeyString.length(); i++) {
+            List<Character> neoList = new ArrayList();
+            neoList.add(primaryKeyString.charAt(i));
+            
+            if (!this.currentRelation.hasField(new Field(neoList, false))) {
+                throw new InvalidDataException("Please check primary key");
+            }
+            
+            primaryFields.add(primaryKeyString.charAt(i));
+        }
+        
+        Field primaryKey = new Field(primaryFields, true);
+        this.primaryKey = primaryKey;
+        List<Field> primaryKeyFields = new ArrayList();
+        primaryKeyFields.add(primaryKey);
+        
+        List<Field> relationFields = this.currentRelation.getFields();
+        
+        for (int i = 0; i < relationFields.size(); i++) {
+            List<Field> neorightField = new ArrayList();
+            neorightField.add(relationFields.get(i));
+            this.currentRelation.addFunctionalDependency(new FunctionalDependency(primaryKeyFields, neorightField));
+        }        
+    }
+    
+    public Relation parseRelation(String relationString, String functionalDependenciesString) throws InvalidDataException {
+                
         if (relationString.isEmpty() || !relationString.matches(Relation.RELATION_REGEX)) {
             throw new InvalidDataException("Invalid relation. Please try again.");
         }
@@ -256,18 +376,29 @@ public class MainWindow extends javax.swing.JFrame {
     
     // Main Relation
     private Relation currentRelation;
+    private Field primaryKey;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnNormalize;
     private javax.swing.JButton btnSolveCK;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea taCandidateKeys;
+    private javax.swing.JTextArea taNormalization;
     private javax.swing.JTextField tfFunctionalDependenciesCK;
+    private javax.swing.JTextField tfFunctionalDependenciesN;
+    private javax.swing.JTextField tfPrimaryKeyN;
     private javax.swing.JTextField tfRelationCK;
+    private javax.swing.JTextField tfRelationN;
     // End of variables declaration//GEN-END:variables
 }

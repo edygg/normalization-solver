@@ -8,6 +8,7 @@ import java.util.List;
  * @author Edilson
  */
 public class Field {
+    public static final String PRIMARY_KEY_REGEX = "([A-Z])*";
     private List<Character> names;
     private boolean primaryKey;
     
